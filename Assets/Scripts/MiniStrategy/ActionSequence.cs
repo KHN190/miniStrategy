@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-//using System.Text.Json;
-//using System.Text.Json.Serialization;
 using UnityEngine;
 
 namespace MiniStrategy
@@ -10,17 +8,26 @@ namespace MiniStrategy
     [Serializable]
     public class ActionSequence
     {
-        protected readonly Queue<IAction> actionWait = new Queue<IAction>();
-        protected readonly Queue<IAction> actionDone = new Queue<IAction>();
+        protected readonly Queue<ActionBase> actionWait = new Queue<ActionBase>();
+        protected readonly Queue<ActionBase> actionDone = new Queue<ActionBase>();
         protected bool executing;
         protected bool paused;
 
         [Range(0, 3000)]
         public int delayMS = 0;
 
-        public virtual void Register(IAction action)
+        public int nWait { get { return actionWait.Count; } }
+        public int nDone { get { return actionDone.Count; } }
+
+        public virtual void Register(ActionBase action)
         {
             actionWait.Enqueue(action);
+        }
+
+        public virtual void Clear()
+        {
+            actionWait.Clear();
+            actionDone.Clear();
         }
 
         public void NextAction()
@@ -49,7 +56,7 @@ namespace MiniStrategy
 
         public void UndoUntilEnd()
         {
-            while (actionDone.Count != 0)
+            while (actionDone.Count != 0 && !actionDone.Peek().disableUndo)
             {
                 UndoAction();
             }
@@ -86,7 +93,7 @@ namespace MiniStrategy
 
             if (actionWait.Count > 0)
             {
-                IAction action = actionWait.Dequeue();
+                ActionBase action = actionWait.Dequeue();
                 action.Execute();
                 actionDone.Enqueue(action);
             }
@@ -101,7 +108,13 @@ namespace MiniStrategy
         {
             if (actionDone.Count > 0)
             {
-                IAction action = actionDone.Dequeue();
+                if (actionDone.Peek().disableUndo)
+                {
+                    Debug.LogWarning("Action undo is disabled.");
+                    return;
+                }
+
+                ActionBase action = actionDone.Dequeue();
                 action.Undo();
             }
             else

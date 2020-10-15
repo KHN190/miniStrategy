@@ -28,7 +28,7 @@ sequence.NextAction();
 sequence.UndoAction();
 ```
 
-And `action` implements `IAction` with execute and undo behaviour. See [unit test](./Assets/Scripts/Editor/ActionTests.cs) for detailed examples.
+And `action` inherits `ActionBase` with execute and undo behaviour by yourself. See [unit test](./Assets/Scripts/Editor/ActionTests.cs) for detailed examples.
 
 ## Related
 

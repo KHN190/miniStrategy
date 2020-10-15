@@ -2,7 +2,7 @@
 {
     public class RealTimeSequence : ActionSequence
     {
-        public override void Register(IAction action)
+        public override void Register(ActionBase action)
         {
             base.Register(action);
 

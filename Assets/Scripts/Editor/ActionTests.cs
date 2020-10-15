@@ -5,12 +5,12 @@ using System;
 namespace Tests
 {
     [Serializable]
-    class Blackboard
+    public class Blackboard
     {
         public int number = 0;
     }
 
-    class IncreaseNumber : ActionBase
+    public class Adder : ActionBase
     {
         public Blackboard blackboard;
 
@@ -35,12 +35,12 @@ namespace Tests
         {
             Blackboard blackboard = new Blackboard();
             ActionSequence sequence = new ActionSequence();
-
-            IncreaseNumber adder = new IncreaseNumber
+            // action
+            Adder adder = new Adder
             {
                 blackboard = blackboard
             };
-
+            // sequence
             for (int _ = 0; _ < 3; _++)
             {
                 sequence.Register(adder);
@@ -51,6 +51,26 @@ namespace Tests
 
             sequence.UndoUntilEnd();
             Assert.AreEqual(blackboard.number, 0);
+        }
+
+        [Test]
+        public void TestDisableUndo()
+        {
+            Blackboard blackboard = new Blackboard();
+            ActionSequence sequence = new ActionSequence();
+
+            Adder adder = new Adder
+            {
+                blackboard = blackboard,
+                disableUndo = true
+            };
+            sequence.Register(adder);
+
+            sequence.NextAction();
+            sequence.UndoAction();
+
+            Assert.AreEqual(sequence.nWait, 0);
+            Assert.AreEqual(sequence.nDone, 1);
         }
     }
 }
