@@ -16,36 +16,36 @@ namespace Tests
         }
     }
 
-	class StageForTest : Stage {}
+    class StageForTest : Stage { }
 
     public class StageActionTests
     {
-		[Test]
-		public void TestExecuteActions()
-		{
-			ActionSequence sequence = new ActionSequence();
+        [Test]
+        public void TestExecuteActions()
+        {
+            ActionSequence sequence = new ActionSequence();
 
             // stage
-			StageForTest stage = new StageForTest()
-			{
-				moveLimit = 1
-			};
-			// action
-			StageActionForTest action = new StageActionForTest();
-			stage.Register(action);
+            StageForTest stage = new StageForTest()
+            {
+                moveLimit = 1
+            };
+            // action
+            StageActionForTest action = new StageActionForTest();
+            stage.Register(action);
             // sequence
-			for (int i = 0; i < 2; i++)
-			{
-				sequence.Register(action);
+            for (int i = 0; i < 2; i++)
+            {
+                sequence.Register(action);
             }
-			Assert.AreEqual(stage.moveLimit, 1);
+            Assert.AreEqual(stage.moveLimit, 1);
 
-			// should execute
-			sequence.NextAction();
-			Assert.AreEqual(stage.moveLimit, 0);
+            // should execute
+            sequence.NextAction();
+            Assert.AreEqual(stage.moveLimit, 0);
 
-			// should not
-			sequence.NextAction();
+            // should not
+            sequence.NextAction();
             sequence.UndoAction();
             Assert.AreEqual(stage.moveLimit, 1);
         }

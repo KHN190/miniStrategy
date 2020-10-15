@@ -2,7 +2,7 @@
 
 namespace MiniStrategy
 {
-    public abstract class Stage
+    public class Stage
     {
         protected readonly List<ActionBase> availableActions = new List<ActionBase>();
 

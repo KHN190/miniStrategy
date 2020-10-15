@@ -1,5 +1,8 @@
 ## miniStrategy
 
+[![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](https://github.com/KHN190/miniStrategy/wiki)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/KHN190/miniStrategy/blob/master/license)
+
 Strategy framework that features:
 
 * Redo / Undo for everything ☑️
@@ -12,23 +15,7 @@ Strategy framework that features:
 * Execute with a delay ☑️
 * Serialize / Deserialize actions and sequence
 
-## Use
-
-There are currently two modes to pick: `TurnBaseSequence` or `RealTimeSequence`.
-
-```csharp
-// e.g.
-TurnBaseSequence sequence = new TurnBaseSequence();
-sequence.Register(action);
-// slow mode
-sequence.delayMS = 100;
-// execute
-sequence.NextAction();
-// undo
-sequence.UndoAction();
-```
-
-And `action` inherits `ActionBase` with execute and undo behaviour by yourself. See [unit test](./Assets/Scripts/Editor/ActionTests.cs) for detailed examples.
+Read [wiki here](https://github.com/KHN190/miniStrategy/wiki).
 
 ## Related
 
