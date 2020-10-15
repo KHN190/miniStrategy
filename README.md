@@ -38,3 +38,7 @@ And `action` implements `IAction` with execute and undo behaviour. See [unit tes
 
 * Godot export
 * Wiki
+
+## Reference
+
+* [Boardgame.io](https://boardgame.io/documentation/), a turn based framework supports multiplayer in JavaScript. It has useful concepts.
