@@ -11,6 +11,26 @@ Strategy framework that features:
 * Execute with a delay ☑️
 * Serialize / Deserialize actions and sequence
 
+## Use
+
+There are currently two modes to pick: `TurnBaseSequence` or `RealTimeSequence`.
+
+```csharp
+// e.g.
+TurnBaseSequence sequence = new TurnBaseSequence();
+sequence.Register(action);
+// execute
+sequence.NextAction();
+// undo
+sequence.UndoAction();
+```
+
+And `action` implements `IAction`. See [unit test](./Assets/Scripts/Editor/ActionTests.cs) for detailed examples.
+
+## Related
+
+* [miniHexMap](https://github.com/KHN190/miniHexMap), a hexagon map editor
+
 ## Plans
 
 * Godot export
