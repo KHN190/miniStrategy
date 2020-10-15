@@ -84,21 +84,29 @@ namespace MiniStrategy
                 Thread.Sleep(100);
             }
 
-            IAction action = actionWait.Dequeue();
-            if (action != null)
+            if (actionWait.Count > 0)
             {
+                IAction action = actionWait.Dequeue();
                 action.Execute();
                 actionDone.Enqueue(action);
+            }
+            else
+            {
+                Debug.LogWarning("No action can be executed.");
             }
             executing = false;
         }
 
         protected virtual void UndoCoro()
         {
-            IAction action = actionDone.Dequeue();
-            if (action != null)
+            if (actionDone.Count > 0)
             {
+                IAction action = actionDone.Dequeue();
                 action.Undo();
+            }
+            else
+            {
+                Debug.LogWarning("No action can be undo.");
             }
         }
 

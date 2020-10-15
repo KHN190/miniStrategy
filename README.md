@@ -8,6 +8,7 @@ Strategy framework that features:
 	* turn based mode, traditional one ☑️
 	* real time mode, every action is executed on the fly ☑️
 	* mix mode, plan in a turn, act simultaneously
+* Pause / Resume ☑️
 * Execute with a delay ☑️
 * Serialize / Deserialize actions and sequence
 
@@ -19,13 +20,15 @@ There are currently two modes to pick: `TurnBaseSequence` or `RealTimeSequence`.
 // e.g.
 TurnBaseSequence sequence = new TurnBaseSequence();
 sequence.Register(action);
+// slow mode
+sequence.delayMS = 100;
 // execute
 sequence.NextAction();
 // undo
 sequence.UndoAction();
 ```
 
-And `action` implements `IAction`. See [unit test](./Assets/Scripts/Editor/ActionTests.cs) for detailed examples.
+And `action` implements `IAction` with execute and undo behaviour. See [unit test](./Assets/Scripts/Editor/ActionTests.cs) for detailed examples.
 
 ## Related
 
