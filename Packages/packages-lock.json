@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.madsbangh.easybuttons": {
+      "version": "https://github.com/madsbangh/EasyButtons.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7047cf063c0dbc92b73a3d5e319ab25db877b01e"
+    },
     "com.unity.collab-proxy": {
       "version": "1.2.16",
       "depth": 0,
